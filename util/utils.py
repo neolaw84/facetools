@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 plt.switch_backend('agg')
 import numpy as np
 from PIL import Image
-import bcolz
 import io
 import os
 
