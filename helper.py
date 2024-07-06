@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageOps
 import matplotlib.pyplot as plt
 
 import torch
@@ -53,7 +53,7 @@ def max_dimension_resize(image_pil, mask_pil, max_dim):
         h = max_dim
     return image_pil.resize((w, h)), mask_pil.resize((w, h))
 
-def preprocess_images(image_path, mask_path, max_dim):
+def preprocess_images(image_path, mask_path, max_dim, show_step=0):
     image_pil = read_image(image_path).convert('RGB')
     mask_pil = read_image(mask_path).convert('RGB')
 
@@ -62,8 +62,9 @@ def preprocess_images(image_path, mask_path, max_dim):
     image_np = pil_to_np_array(image_pil)
     mask_np = pil_to_np_array(mask_pil)
 
-    print('Visualizing mask overlap...')
+    if show_step != 0: 
+        print('Visualizing mask overlap...')
 
-    visualize_sample(image_np, mask_np, image_np * mask_np, nrow = 3, size_factor = 10)
+        visualize_sample(image_np, mask_np, image_np * mask_np, nrow = 3, size_factor = 10)
 
     return image_np, mask_np
